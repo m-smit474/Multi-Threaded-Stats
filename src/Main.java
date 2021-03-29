@@ -7,7 +7,7 @@ public class Main {
     {
         File InputFile = new File(args[0]);
         Scanner readFile = new Scanner(InputFile);
-        textProcess(readFile);
+       // textProcess(readFile);
 
     }
 
