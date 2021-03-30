@@ -1,6 +1,6 @@
 public class Main {
   //-------------Constants---------------------
-    final static int NUM_OF_GAMES = 16000;
+    public final static int NUM_OF_GAMES = 16598;
 
   //-----------Global Variables----------------
     public static Game[] games = new Game[NUM_OF_GAMES];
@@ -10,7 +10,7 @@ public class Main {
     {
         OpenFiles.processFile();
 
-        for(int i = 0; i < 40; i++) {
+        for(int i = 0; i < NUM_OF_GAMES; i++) {
             System.out.println(games[i]);
         }
         //File InputFile = new File(args[0]);

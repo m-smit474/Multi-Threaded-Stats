@@ -6,8 +6,6 @@ public class OpenFiles
 {
     //-------------Constants---------------------
 
-    final static int NUM_OF_GAMES = 16000;
-
     // Offsets for different fields within a line
     final static byte RANK = 0;
     final static byte NAME = 1;
@@ -22,7 +20,7 @@ public class OpenFiles
     final static byte GLOBAL_SALES = 10;
 
     public static void processFile() {
-        String fileName = "test1.csv";
+        String fileName = "vgsales.csv";
         //Game[] games = new Game[NUM_OF_GAMES];
         String rank, name, platform, year, genre, publisher, na_sales, eu_sales,
         jp_sales, other_sales, global_sales;
@@ -33,7 +31,7 @@ public class OpenFiles
             file.nextLine(); // Don't want to process first line
 
             int gameNumber = 0;
-            while(file.hasNextLine() && gameNumber < NUM_OF_GAMES) {
+            while(file.hasNextLine() && gameNumber < Main.NUM_OF_GAMES) {
                 // Goes through each line.
                 // Lines are of the form:
         // Rank, Name, Platform, Year, Genre, Publisher, NA_Sales, EU_Sales, JP_Sales, Other_sales, Global_sales
