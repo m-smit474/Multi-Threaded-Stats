@@ -13,9 +13,6 @@ public class Main {
         for(int i = 0; i < NUM_OF_GAMES; i++) {
             System.out.println(games[i]);
         }
-        //File InputFile = new File(args[0]);
-        //Scanner readFile = new Scanner(InputFile);
-       // textProcess(readFile);
 
     }
 

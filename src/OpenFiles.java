@@ -21,14 +21,13 @@ public class OpenFiles
 
     public static void processFile() {
         String fileName = "vgsales.csv";
-        //Game[] games = new Game[NUM_OF_GAMES];
         String rank, name, platform, year, genre, publisher, na_sales, eu_sales,
         jp_sales, other_sales, global_sales;
 
         try {
             Scanner file = new Scanner(new File(fileName));
 
-            file.nextLine(); // Don't want to process first line
+            file.nextLine(); // Don't want to process first line because it's the categories
 
             int gameNumber = 0;
             while(file.hasNextLine() && gameNumber < Main.NUM_OF_GAMES) {
@@ -38,6 +37,8 @@ public class OpenFiles
 
                 String line = file.nextLine();
                 String[] tokens = line.split(",");
+
+                // Extract fields from line
                 rank = tokens[RANK];
                 name = tokens[NAME];
                 platform = tokens[PLATFORM];
@@ -50,13 +51,12 @@ public class OpenFiles
                 other_sales = tokens[OTHER_SALES];
                 global_sales = tokens[GLOBAL_SALES];
 
+                // Create new game object with corresponding fields
                 Game newGame = new Game(rank, name, platform, year, genre, publisher, na_sales,
                         eu_sales, jp_sales, other_sales, global_sales);
 
+                // Add game to global structure
                 Main.games[gameNumber] = newGame;
-
-                //System.out.println(newGame);
-                //System.out.println("Line " + gameNumber + " name is: " + tokens[NAME]);
 
                 gameNumber++;
             }
