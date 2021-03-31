@@ -6,14 +6,14 @@ public class Game {
     private String year;
     private String genre;
     private String publisher;
-    private String NA_sales;
-    private String EU_sales;
-    private String JP_sales;
-    private String other_sales;
-    private String global_sales;
+    private Double NA_sales;
+    private Double EU_sales;
+    private Double JP_sales;
+    private Double other_sales;
+    private Double global_sales;
 
     public Game(String myRank, String myName, String myPlatform, String myYear, String myGenre, String myPublisher,
-            String na_sales, String eu_sales, String jp_sales, String other, String global) {
+            Double na_sales, Double eu_sales, Double jp_sales, Double other, Double global) {
      rank = myRank;
      name = myName;
      platform = myPlatform;
@@ -49,19 +49,19 @@ public String getGenre() {
 public String getPublisher() {
     return publisher;
 }
-public String getNA_sales() {
+public Double getNA_sales() {
     return NA_sales;
 }
-public String getEU_sales() {
+public Double getEU_sales() {
     return EU_sales;
 }
-public String getJP_sales() {
+public Double getJP_sales() {
     return JP_sales;
 }
-public String getOther_sales() {
+public Double getOther_sales() {
     return other_sales;
 }
-public String getGlobal_sales() {
+public Double getGlobal_sales() {
     return global_sales;
 }
 }

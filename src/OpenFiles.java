@@ -20,9 +20,9 @@ public class OpenFiles
     final static byte GLOBAL_SALES = 10;
 
     public static void processFile() {
-        String fileName = "vgsales.csv";
-        String rank, name, platform, year, genre, publisher, na_sales, eu_sales,
-        jp_sales, other_sales, global_sales;
+        String fileName = "test1.csv";
+        String rank, name, platform, year, genre, publisher;
+        Double na_sales, eu_sales, jp_sales, other_sales, global_sales;
 
         try {
             Scanner file = new Scanner(new File(fileName));
@@ -45,11 +45,11 @@ public class OpenFiles
                 year = tokens[YEAR];
                 genre = tokens[GENRE];
                 publisher = tokens[PUBLISHER];
-                na_sales = tokens[NA_SALES];
-                eu_sales = tokens[EU_SALES];
-                jp_sales = tokens[JP_SALES];
-                other_sales = tokens[OTHER_SALES];
-                global_sales = tokens[GLOBAL_SALES];
+                na_sales = Double.parseDouble(tokens[NA_SALES]);
+                eu_sales = Double.parseDouble(tokens[EU_SALES]);
+                jp_sales = Double.parseDouble(tokens[JP_SALES]);
+                other_sales = Double.parseDouble(tokens[OTHER_SALES]);
+                global_sales = Double.parseDouble(tokens[GLOBAL_SALES]);
 
                 // Create new game object with corresponding fields
                 Game newGame = new Game(rank, name, platform, year, genre, publisher, na_sales,
