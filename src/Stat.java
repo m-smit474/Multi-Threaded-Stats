@@ -44,7 +44,6 @@ public class Stat
         if (size % 2 == 1)
         {
             med_value = list.get(middle);
-
         }
         else
         {
