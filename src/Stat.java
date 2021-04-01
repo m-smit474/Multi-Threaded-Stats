@@ -64,9 +64,11 @@ public class Stat
         for (int i = 0; i < Main.NUM_OF_GAMES; ++i)
         {
             int count = 0;
+            //had to cast the double to an int in order to find the mode
             int NA_intI = (int) Math.round(Main.games[i].getNA_sales());
             for (int j = 0; j < Main.NUM_OF_GAMES; ++j)
             {
+              //had to cast the double to an int in order to find the mode
                 int NA_intJ = (int) Math.round(Main.games[j].getNA_sales());
                 if (NA_intI == NA_intJ)
                     ++count;
