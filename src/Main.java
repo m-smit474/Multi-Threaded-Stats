@@ -15,6 +15,7 @@ public class Main {
   //          System.out.println(games[i]);
         }
         Stat.mean();
+        Stat.median();
     }
 
 }

@@ -64,4 +64,7 @@ public Double getOther_sales() {
 public Double getGlobal_sales() {
     return global_sales;
 }
+
+
+
 }
