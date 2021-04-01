@@ -17,7 +17,7 @@ public class Stat
 
         double result = sum / i;
         System.out.println(result);
-        return sum;
+        return result;
 
     }
 
@@ -56,4 +56,32 @@ public class Stat
         return med_value;
     }
 
+    public static double mode()
+    {
+        int maxValue = 0, maxCount = 0;
+
+
+        for (int i = 0; i < Main.NUM_OF_GAMES; ++i)
+        {
+            int count = 0;
+            int NA_intI = (int) Math.round(Main.games[i].getNA_sales());
+            for (int j = 0; j < Main.NUM_OF_GAMES; ++j)
+            {
+                int NA_intJ = (int) Math.round(Main.games[j].getNA_sales());
+                if (NA_intI == NA_intJ)
+                    ++count;
+            }
+            if (count > maxCount)
+            {
+                maxCount = count;
+                maxValue = NA_intI;
+            }
+        }
+        System.out.println("mode for NA_sales =" + maxValue);
+
+        return maxValue;
+
+    }
+
 }
+
