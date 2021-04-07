@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class OpenFiles
 {
     //-------------Constants---------------------
+	final static byte NUM_OF_FIELDS = 11;
 
     // Offsets for different fields within a line
     final static byte RANK = 0;
@@ -20,7 +21,7 @@ public class OpenFiles
     final static byte GLOBAL_SALES = 10;
 
     public static void processFile() {
-        String fileName = "test1.csv";
+        String fileName = "vgsales.csv";
         String rank, name, platform, year, genre, publisher;
         Double na_sales, eu_sales, jp_sales, other_sales, global_sales;
 
@@ -37,24 +38,34 @@ public class OpenFiles
 
                 String line = file.nextLine();
                 String[] tokens = line.split(",");
+                
+                // Handles case where names include commas
+                // Names with commas will have more tokens
+                int extraParts = tokens.length - NUM_OF_FIELDS;
 
                 // Extract fields from line
                 rank = tokens[RANK];
                 name = tokens[NAME];
-                platform = tokens[PLATFORM];
-                year = tokens[YEAR];
-                genre = tokens[GENRE];
-                publisher = tokens[PUBLISHER];
-                na_sales = Double.parseDouble(tokens[NA_SALES]);
-                eu_sales = Double.parseDouble(tokens[EU_SALES]);
-                jp_sales = Double.parseDouble(tokens[JP_SALES]);
-                other_sales = Double.parseDouble(tokens[OTHER_SALES]);
-                global_sales = Double.parseDouble(tokens[GLOBAL_SALES]);
+                
+                // Add extra parts of name (in case commas are in name)
+                for(int i = 0; i < extraParts; i++) {
+                	name = name + tokens[NAME + (i+1)];
+                }
+                
+                platform = tokens[PLATFORM + extraParts];
+                year = tokens[YEAR + extraParts];
+                genre = tokens[GENRE + extraParts];
+                publisher = tokens[PUBLISHER + extraParts];
+                na_sales = Double.parseDouble(tokens[NA_SALES + extraParts]);
+                eu_sales = Double.parseDouble(tokens[EU_SALES + extraParts]);
+                jp_sales = Double.parseDouble(tokens[JP_SALES + extraParts]);
+                other_sales = Double.parseDouble(tokens[OTHER_SALES + extraParts]);
+                global_sales = Double.parseDouble(tokens[GLOBAL_SALES + extraParts]);
 
                 // Create new game object with corresponding fields
                 Game newGame = new Game(rank, name, platform, year, genre, publisher, na_sales,
                         eu_sales, jp_sales, other_sales, global_sales);
-
+                
                 // Add game to global structure
                 Main.games[gameNumber] = newGame;
 
