@@ -38,7 +38,7 @@ public class OpenFiles
 
                 String line = file.nextLine();
                 String[] tokens = line.split(",");
-                
+
                 // Handles case where names include commas
                 // Names with commas will have more tokens
                 int extraParts = tokens.length - NUM_OF_FIELDS;
@@ -46,12 +46,12 @@ public class OpenFiles
                 // Extract fields from line
                 rank = tokens[RANK];
                 name = tokens[NAME];
-                
+
                 // Add extra parts of name (in case commas are in name)
                 for(int i = 0; i < extraParts; i++) {
                 	name = name + tokens[NAME + (i+1)];
                 }
-                
+
                 platform = tokens[PLATFORM + extraParts];
                 year = tokens[YEAR + extraParts];
                 genre = tokens[GENRE + extraParts];
@@ -65,7 +65,7 @@ public class OpenFiles
                 // Create new game object with corresponding fields
                 Game newGame = new Game(rank, name, platform, year, genre, publisher, na_sales,
                         eu_sales, jp_sales, other_sales, global_sales);
-                
+
                 // Add game to global structure
                 Main.games[gameNumber] = newGame;
 
