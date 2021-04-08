@@ -8,6 +8,7 @@ public class Stat
     {
         double sum = 0;
         int i;
+        //for (i = 0; i < OpenFiles.gameNumber; i++)
         for (i = 0; i < Main.NUM_OF_GAMES; i++)
         {
             sum += Main.games[i].getNA_sales();
@@ -16,7 +17,7 @@ public class Stat
         // System.out.println(sum);
 
         double result = sum / i;
-        System.out.println(result);
+        System.out.println("mean = " + result);
         return result;
 
     }
@@ -30,7 +31,7 @@ public class Stat
 
         //creates an array list of sales
         ArrayList<Double> list = new ArrayList<Double>();
-
+       // for (i = 0; i < OpenFiles.gameNumber; i++)
         for(i = 0; i < Main.NUM_OF_GAMES; i++)
         {
             list.add(Main.games[i].getNA_sales());
@@ -56,30 +57,46 @@ public class Stat
         return med_value;
     }
 
+    /*
+     *rounds to the nearest whole number.
+     *
+     */
     public static double mode()
     {
-        int maxValue = 0, maxCount = 0;
+        double maxValue = 0, maxCount = 0;
+        double NA_I = 0, NA_J = 0;
 
 
         for (int i = 0; i < Main.NUM_OF_GAMES; ++i)
         {
             int count = 0;
             //had to cast the double to an int in order to find the mode
-            int NA_intI = (int) Math.round(Main.games[i].getNA_sales());
+            //int NA_intI = (int) Math.round(Main.games[i].getNA_sales());
+            NA_I = Main.games[i].getNA_sales();
             for (int j = 0; j < Main.NUM_OF_GAMES; ++j)
             {
               //had to cast the double to an int in order to find the mode
-                int NA_intJ = (int) Math.round(Main.games[j].getNA_sales());
-                if (NA_intI == NA_intJ)
-                    ++count;
+                //int NA_intJ = (int) Math.round(Main.games[j].getNA_sales());
+                NA_J = Main.games[j].getNA_sales();
+                if (NA_I == NA_J)
+                    count++;
+                    //++count;
             }
             if (count > maxCount)
             {
                 maxCount = count;
-                maxValue = NA_intI;
+                maxValue = NA_I;
             }
         }
-        System.out.println("mode for NA_sales =" + maxValue);
+
+        if (maxCount == 1)
+        {
+            System.out.println("there is no mode for the list.");
+        }
+        else
+        {
+            System.out.println("mode for NA_sales = " + maxValue);
+        }
 
         return maxValue;
 
