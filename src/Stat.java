@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Stat
+public class Stat implements Runnable
 {
 
     public static double mean()
@@ -101,6 +101,21 @@ public class Stat
         return maxValue;
 
     }
+
+
+    @Override
+    public void run()
+    {
+
+
+        mode();
+        mean();
+        median();
+        // TODO Auto-generated method stub
+
+    }
+
+
 
 }
 
