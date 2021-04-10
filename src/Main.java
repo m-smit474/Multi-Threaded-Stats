@@ -25,14 +25,7 @@ public class Main {
         meanThread.start();
         medianThread.start();
 
-        try
-        {
-            modeThread.join();
-        } catch (InterruptedException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+
         try
         {
             meanThread.join();
@@ -49,7 +42,14 @@ public class Main {
 
             e.printStackTrace();
         }
-
+        try
+        {
+            modeThread.join();
+        } catch (InterruptedException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         Instant end = Instant.now();
 
         duration = Duration.between(start,end).toMillis();

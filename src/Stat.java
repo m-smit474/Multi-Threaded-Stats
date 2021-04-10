@@ -108,9 +108,10 @@ public class Stat implements Runnable
     {
 
 
-        mode();
+        /*mode();
         mean();
         median();
+        */
         // TODO Auto-generated method stub
 
     }
