@@ -12,52 +12,37 @@ public class Main {
     {
 
         OpenFiles.processFile();
+
         Long duration,duration2;
         Thread modeThread,meanThread,medianThread;
 
-        modeThread  = new Thread(() -> Stat.mode());
+        Instant start = Instant.now();
+
+
+        modeThread = new Thread(() -> Stat.mode());
         meanThread = new Thread(() -> Stat.mean());
         medianThread = new Thread(() -> Stat.median());
-
-        Instant start = Instant.now();
 
         modeThread.start();
         meanThread.start();
         medianThread.start();
 
-
-        try
-        {
-            meanThread.join();
-        } catch (InterruptedException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        try
-        {
-            medianThread.join();
-        } catch (InterruptedException e)
-        {
-
-            e.printStackTrace();
-        }
         try
         {
             modeThread.join();
+            meanThread.join(1);
+            medianThread.join(1);
+
+           Instant end = Instant.now();
+
+           duration = Duration.between(start,end).toMillis();
+           System.out.println("Thread duration = " + duration + "ms");
+
         } catch (InterruptedException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Instant end = Instant.now();
-
-        duration = Duration.between(start,end).toMillis();
-        System.out.println("Thread duration = " + duration + "ms");
-
-
-
-
 
         Instant start2 = Instant.now();
         Stat.mean();

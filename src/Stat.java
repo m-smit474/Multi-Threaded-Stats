@@ -66,7 +66,6 @@ public class Stat implements Runnable
         double maxValue = 0, maxCount = 0;
         double NA_I = 0, NA_J = 0;
 
-
         for (int i = 0; i < Main.NUM_OF_GAMES; ++i)
         {
             int count = 0;
@@ -107,11 +106,11 @@ public class Stat implements Runnable
     public void run()
     {
 
-
-        /*mode();
+       /*
+        mode();
         mean();
         median();
-        */
+*/
         // TODO Auto-generated method stub
 
     }
