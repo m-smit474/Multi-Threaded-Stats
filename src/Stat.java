@@ -3,6 +3,11 @@ import java.util.Collections;
 
 public class Stat implements Runnable
 {
+	private String name;
+	
+	public Stat (String name) {
+		this.name = name;
+	}
 
     public static double mean()
     {
@@ -106,12 +111,27 @@ public class Stat implements Runnable
     public void run()
     {
 
+<<<<<<< Updated upstream
        /*
         mode();
         mean();
         median();
 */
         // TODO Auto-generated method stub
+=======
+    	if(name == "mode") {
+    		mode();
+    	}
+    	else if (name == "mean") {
+    		mean();
+    	}
+    	else if (name == "median") {
+    		median();
+    	}
+    	else {
+    		System.out.println("Failed to run stat: " + name);
+    	}
+>>>>>>> Stashed changes
 
     }
 
