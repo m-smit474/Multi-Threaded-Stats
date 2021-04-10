@@ -111,14 +111,6 @@ public class Stat implements Runnable
     public void run()
     {
 
-<<<<<<< Updated upstream
-       /*
-        mode();
-        mean();
-        median();
-*/
-        // TODO Auto-generated method stub
-=======
     	if(name == "mode") {
     		mode();
     	}
@@ -131,7 +123,6 @@ public class Stat implements Runnable
     	else {
     		System.out.println("Failed to run stat: " + name);
     	}
->>>>>>> Stashed changes
 
     }
 
