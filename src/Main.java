@@ -5,6 +5,7 @@ public class Main {
   //-------------Constants---------------------
     public final static int NUM_OF_GAMES = 16598;
    // public final static int NUM_OF_GAMES = 40;
+    
   //-----------Global Variables----------------
     public static Game[] games = new Game[NUM_OF_GAMES];
 
@@ -13,16 +14,22 @@ public class Main {
 
         OpenFiles.processFile();
 
-        Long duration,duration2;
+        Long multithreadedDuration, sequentialDuration;
 
-        Instant start = Instant.now();
+        Instant multithreadedStart = Instant.now();
+        
+        // Two partial modes
+        Stat bottomMode = new Stat("bottomMode");
+        Stat topMode = new Stat("topMode");
 
-        Thread modeThread = new Thread(new Stat("mode"));
+        Thread bottomModeThread = new Thread(bottomMode);
+        Thread topModeThread = new Thread(topMode);
         Thread meanThread = new Thread(new Stat("mean"));
         Thread medianThread = new Thread(new Stat("median"));
         
 
-        modeThread.start();
+        bottomModeThread.start();
+        topModeThread.start();
         meanThread.start();
         medianThread.start();
 
@@ -30,29 +37,44 @@ public class Main {
         {
             meanThread.join();
             medianThread.join();
-            modeThread.join();
+            bottomModeThread.join();
+            topModeThread.join();
 
-           Instant end = Instant.now();
+           Instant multithreadedEnd = Instant.now();
+           
+           // Have two partial modes (topMode and bottomMode)
+           // Final Mode calculation here:
+           if(bottomMode.getResult() == topMode.getResult()) {
+           	System.out.println("mode for NA_sales = " + bottomMode.getResult());
+           }
+           else if (bottomMode.getCount() > topMode.getCount()) {
+           	System.out.println("mode for NA_sales = " + bottomMode.getResult());
+           }
+           else {
+           	System.out.println("mode for NA_sales = " + topMode.getResult());
+           }
 
-           duration = Duration.between(start,end).toMillis();
-           System.out.println("Multithreaded Calculation time = " + duration + "ms");
+           // Time it took for multithreaded calculations
+           multithreadedDuration = Duration.between(multithreadedStart,multithreadedEnd).toMillis();
+           System.out.println("Multithreaded Calculation time = " + multithreadedDuration + "ms");
 
         } catch (InterruptedException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println("Failed to join threads!");
+            //e.printStackTrace();
         }
 
 
 
-        Instant start2 = Instant.now();
+        Instant sequentialStart = Instant.now();
         Stat.mean();
         Stat.median();
         Stat.mode();
-        Instant end2 = Instant.now();
+        Instant sequentialEnd = Instant.now();
 
-        duration2 = Duration.between(start2, end2).toMillis();
-        System.out.println("Sequential Calculation time = " + duration2 + "ms");
+        sequentialDuration = Duration.between(sequentialStart, sequentialEnd).toMillis();
+        System.out.println("Sequential Calculation time = " + sequentialDuration + "ms");
+        
 
     }
 

@@ -3,10 +3,16 @@ import java.util.Collections;
 
 public class Stat implements Runnable
 {
+	// Added some fields for a stat
 	private String name;
+	private Double result;
+	private Double count;
 	
+	// Stat constructor
 	public Stat (String name) {
 		this.name = name;
+		this.result = 0.0;
+		this.count = 0.0;
 	}
 
     public static double mean()
@@ -105,14 +111,80 @@ public class Stat implements Runnable
         return maxValue;
 
     }
+    
+    /*
+     * Mode that supports parallelization
+     */
+    public static Stat modeVersion2(int start, int end)
+    {
+        double maxValue = 0, maxCount = 0;
+        double NA_I = 0, NA_J = 0;
+        
+        Stat myStat = new Stat("mode");
+
+        for (int i = start; i < end; ++i)
+        {
+            int count = 0;
+            //had to cast the double to an int in order to find the mode
+            //int NA_intI = (int) Math.round(Main.games[i].getNA_sales());
+            NA_I = Main.games[i].getNA_sales();
+            for (int j = start; j < end; ++j)
+            {
+              //had to cast the double to an int in order to find the mode
+                //int NA_intJ = (int) Math.round(Main.games[j].getNA_sales());
+                NA_J = Main.games[j].getNA_sales();
+                if (NA_I == NA_J)
+                    count++;
+                    //++count;
+            }
+            if (count > maxCount)
+            {
+                maxCount = count;
+                maxValue = NA_I;
+            }
+        }
+
+        if (maxCount == 1)
+        {
+            System.out.println("there is no mode for the list.");
+        }
+        
+        myStat.count = maxCount;
+        myStat.result = maxValue;
+
+        return myStat;
+        //return maxValue;
+
+    }
 
 
-    @Override
+    public String getName() {
+		return name;
+	}
+
+	public Double getResult() {
+		return result;
+	}
+
+	public Double getCount() {
+		return count;
+	}
+
+	@Override
     public void run()
     {
 
-    	if(name == "mode") {
-    		mode();
+    	if(name == "bottomMode") {
+    		Stat temp = new Stat("temp");
+    		temp = Stat.modeVersion2(0, (Main.NUM_OF_GAMES/2));
+    		this.result = temp.result;
+    		this.count = temp.count;
+    	}
+    	else if (name == "topMode") {
+    		Stat temp = new Stat("temp");
+    		temp = Stat.modeVersion2((Main.NUM_OF_GAMES/2) + 1, Main.NUM_OF_GAMES);
+    		this.result = temp.result;
+    		this.count = temp.count;
     	}
     	else if (name == "mean") {
     		mean();
