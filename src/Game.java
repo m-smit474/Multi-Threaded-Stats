@@ -1,4 +1,9 @@
 
+/*
+ *
+ * This class holds all the fields of the video game sales.
+ *
+ * */
 public class Game {
     private String rank;
     private String name;
