@@ -20,6 +20,10 @@ public class OpenFiles
     final static byte OTHER_SALES = 9;
     final static byte GLOBAL_SALES = 10;
 
+    /**
+     * This opens the given csv file.
+     *
+     */
     public static void processFile() {
         String fileName = "vgsales.csv";
         String rank, name, platform, year, genre, publisher;

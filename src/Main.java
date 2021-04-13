@@ -2,13 +2,24 @@ import java.time.Duration;
 import java.time.Instant;
 
 public class Main {
+
   //-------------Constants---------------------
     public final static int NUM_OF_GAMES = 16598;
-   // public final static int NUM_OF_GAMES = 40;
-    
+
   //-----------Global Variables----------------
     public static Game[] games = new Game[NUM_OF_GAMES];
 
+    /**
+     *
+     * @param args
+     *
+     * This Program calculates the mean, mode, and median for the NA region. Where we
+     * compare the multithreading to sequential time.
+     *
+     *
+     * Limitations: only does one region: North America (NA) region.
+     *
+     */
     public static void main(String[] args)
     {
 
@@ -17,7 +28,7 @@ public class Main {
         Long multithreadedDuration, sequentialDuration;
 
         Instant multithreadedStart = Instant.now();
-        
+
         // Two partial modes
         Stat bottomMode = new Stat("bottomMode");
         Stat topMode = new Stat("topMode");
@@ -26,7 +37,6 @@ public class Main {
         Thread topModeThread = new Thread(topMode);
         Thread meanThread = new Thread(new Stat("mean"));
         Thread medianThread = new Thread(new Stat("median"));
-        
 
         bottomModeThread.start();
         topModeThread.start();
@@ -35,23 +45,24 @@ public class Main {
 
         try
         {
+            System.out.println("MULTITHREADED NORTH AMERICA SALES");
             meanThread.join();
             medianThread.join();
             bottomModeThread.join();
             topModeThread.join();
 
            Instant multithreadedEnd = Instant.now();
-           
+
            // Have two partial modes (topMode and bottomMode)
            // Final Mode calculation here:
            if(bottomMode.getResult() == topMode.getResult()) {
-           	System.out.println("mode for NA_sales = " + bottomMode.getResult());
+           	System.out.println("mode = " + bottomMode.getResult());
            }
            else if (bottomMode.getCount() > topMode.getCount()) {
-           	System.out.println("mode for NA_sales = " + bottomMode.getResult());
+           	System.out.println("mode = " + bottomMode.getResult());
            }
            else {
-           	System.out.println("mode for NA_sales = " + topMode.getResult());
+           	System.out.println("mode = " + topMode.getResult());
            }
 
            // Time it took for multithreaded calculations
@@ -61,12 +72,12 @@ public class Main {
         } catch (InterruptedException e)
         {
             System.out.println("Failed to join threads!");
-            //e.printStackTrace();
         }
 
-
+        System.out.println("-------------------------------------------");
 
         Instant sequentialStart = Instant.now();
+        System.out.println("SEQUENTIAL NORTH AMERICA SALES");
         Stat.mean();
         Stat.median();
         Stat.mode();
@@ -74,7 +85,7 @@ public class Main {
 
         sequentialDuration = Duration.between(sequentialStart, sequentialEnd).toMillis();
         System.out.println("Sequential Calculation time = " + sequentialDuration + "ms");
-        
+
 
     }
 

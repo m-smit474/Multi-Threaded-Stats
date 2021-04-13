@@ -7,7 +7,7 @@ public class Stat implements Runnable
 	private String name;
 	private Double result;
 	private Double count;
-	
+
 	// Stat constructor
 	public Stat (String name) {
 		this.name = name;
@@ -15,25 +15,40 @@ public class Stat implements Runnable
 		this.count = 0.0;
 	}
 
+
+	/**
+	 * Mean()
+	 *
+	 * Calculates the mean of a certain region.
+	 *
+	 * Returns the mean.
+	 *
+	 */
     public static double mean()
     {
         double sum = 0;
         int i;
-        //for (i = 0; i < OpenFiles.gameNumber; i++)
+
         for (i = 0; i < Main.NUM_OF_GAMES; i++)
         {
             sum += Main.games[i].getNA_sales();
 
         }
-        // System.out.println(sum);
 
         double result = sum / i;
         System.out.println("mean = " + result);
-        return result;
 
+        return result;
     }
 
-
+    /*
+     * median
+     *
+     * This function calculates the median for the NA region.
+     *
+     * returns the NA median.
+     *
+     * */
     public static double median()
     {
         double med_value = 0;
@@ -42,7 +57,8 @@ public class Stat implements Runnable
 
         //creates an array list of sales
         ArrayList<Double> list = new ArrayList<Double>();
-       // for (i = 0; i < OpenFiles.gameNumber; i++)
+
+        // for (i = 0; i < OpenFiles.gameNumber; i++)
         for(i = 0; i < Main.NUM_OF_GAMES; i++)
         {
             list.add(Main.games[i].getNA_sales());
@@ -62,15 +78,18 @@ public class Stat implements Runnable
             med_value = list.get(((middle -1) + (middle)/ 2));
         }
 
-        //System.out.println(list);
-        System.out.println("median value for NA_sales = " + med_value);
+        System.out.println("median = " + med_value);
 
         return med_value;
     }
 
     /*
-     *rounds to the nearest whole number.
+     * mode
      *
+     * this function calculates the mode for the NA region sales. Does not use a
+     * divide and conquer method.
+     *
+     *Returns the calculated mode.
      */
     public static double mode()
     {
@@ -80,17 +99,12 @@ public class Stat implements Runnable
         for (int i = 0; i < Main.NUM_OF_GAMES; ++i)
         {
             int count = 0;
-            //had to cast the double to an int in order to find the mode
-            //int NA_intI = (int) Math.round(Main.games[i].getNA_sales());
             NA_I = Main.games[i].getNA_sales();
             for (int j = 0; j < Main.NUM_OF_GAMES; ++j)
             {
-              //had to cast the double to an int in order to find the mode
-                //int NA_intJ = (int) Math.round(Main.games[j].getNA_sales());
                 NA_J = Main.games[j].getNA_sales();
                 if (NA_I == NA_J)
                     count++;
-                    //++count;
             }
             if (count > maxCount)
             {
@@ -105,37 +119,41 @@ public class Stat implements Runnable
         }
         else
         {
-            System.out.println("mode for NA_sales = " + maxValue);
+            System.out.println("mode = " + maxValue);
         }
 
         return maxValue;
 
     }
-    
+
+
     /*
-     * Mode that supports parallelization
+     * modeVersion2
+     *
+     * Mode that supports parallelization, uses a divide and conquer method to cut down
+     * one the process time.
+     *
+     * Returns filled in Stat object.
+     *
      */
     public static Stat modeVersion2(int start, int end)
     {
         double maxValue = 0, maxCount = 0;
         double NA_I = 0, NA_J = 0;
-        
+
         Stat myStat = new Stat("mode");
 
         for (int i = start; i < end; ++i)
         {
             int count = 0;
-            //had to cast the double to an int in order to find the mode
-            //int NA_intI = (int) Math.round(Main.games[i].getNA_sales());
+
             NA_I = Main.games[i].getNA_sales();
-            for (int j = start; j < end; ++j)
+            for (int j = 0; j < Main.NUM_OF_GAMES; ++j)
             {
-              //had to cast the double to an int in order to find the mode
-                //int NA_intJ = (int) Math.round(Main.games[j].getNA_sales());
+
                 NA_J = Main.games[j].getNA_sales();
                 if (NA_I == NA_J)
                     count++;
-                    //++count;
             }
             if (count > maxCount)
             {
@@ -148,15 +166,13 @@ public class Stat implements Runnable
         {
             System.out.println("there is no mode for the list.");
         }
-        
+
         myStat.count = maxCount;
         myStat.result = maxValue;
 
         return myStat;
-        //return maxValue;
 
     }
-
 
     public String getName() {
 		return name;
